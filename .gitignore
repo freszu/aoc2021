@@ -1,3 +1,5 @@
 .gradle
 .idea
 build
+Day*.txt
+!Day*_test.txt
