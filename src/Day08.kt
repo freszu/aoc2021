@@ -52,7 +52,7 @@ private fun figureNumbers(uniqueSignalPatterns: List<Set<Char>>): Array<Set<Char
         val d8 = mutablePatterns.removeAndGetFirst { it.count() == 7 }
 
         val length5 = mutablePatterns.removeAndGet { it.count() == 5 }.toMutableList()
-        val length6 = mutablePatterns.removeAndGet { it.count() == 6 }.toMutableList()
+        val length6 = mutablePatterns
 
         val d9 = length6.removeAndGetFirst { it.containsAll(d4) }
         val d6 = length6.removeAndGetFirst { it.containsAll(d9 - d1) }
@@ -67,11 +67,7 @@ private fun figureNumbers(uniqueSignalPatterns: List<Set<Char>>): Array<Set<Char
 
 }
 
-inline fun <T> MutableList<T>.removeAndGetFirst(predicate: (T) -> Boolean): T {
-    val value = first(predicate)
-    remove(value)
-    return value
-}
+inline fun <T> MutableList<T>.removeAndGetFirst(predicate: (T) -> Boolean): T = removeAt(indexOfFirst(predicate))
 
 inline fun <T> MutableList<T>.removeAndGet(predicate: (T) -> Boolean): List<T> {
     val value = filter(predicate)
