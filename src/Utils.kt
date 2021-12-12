@@ -27,3 +27,29 @@ val Pair<Int, Int>.x: Int
 
 val Pair<Int, Int>.y: Int
     get() = this.second
+
+inline fun <T, R> List<List<T>>.map2d(transform: (T) -> R) = this.map { it.map(transform) }
+
+inline fun <T, R> List<List<T>>.map2dIndexed(transform: (x: Int, y: Int, T) -> R) = mapIndexed { y, rows ->
+    rows.mapIndexed { x, t -> transform(x, y, t) }
+}
+
+inline fun <T> List<List<T>>.update(x: Int, y: Int, transform: (T) -> T) = map2dIndexed { ind1M, ind2M, t ->
+    if (x == ind1M && y == ind2M) transform(t) else t
+}
+
+fun <T> List<List<T>>.get(x: Int, y: Int) = this[y][x]
+
+inline fun <T> List<List<T>>.all2d(predicate: (T) -> Boolean): Boolean = all { it.all(predicate) }
+
+fun <T> List<List<T>>.nicePrint() = joinToString("\n")
+
+/**
+ * All adjacent including diagonals
+ */
+fun <T> Pair<Int, Int>.adjacent(inMatrix: List<List<T>>) = listOf(
+    x - 1 to y, x + 1 to y, x to y - 1, x to y + 1,
+    x - 1 to y - 1, x + 1 to y - 1, x - 1 to y + 1, x + 1 to y + 1
+).filter { (x, y) ->
+    x in inMatrix.indices && y in inMatrix.first().indices
+}
