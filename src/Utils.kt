@@ -53,3 +53,14 @@ fun <T> Pair<Int, Int>.adjacent(inMatrix: List<List<T>>) = listOf(
 ).filter { (x, y) ->
     x in inMatrix.indices && y in inMatrix.first().indices
 }
+
+/**
+ * All adjacent excluding diagonals
+ */
+fun <T> Pair<Int, Int>.neighborsXY(inMatrix: List<List<T>>) = listOf(
+    x - 1 to y, x + 1 to y, x to y - 1, x to y + 1,
+).filter { (x, y) ->
+    x in inMatrix.indices && y in inMatrix.first().indices
+}
+
+typealias Position = Pair<Int, Int>
