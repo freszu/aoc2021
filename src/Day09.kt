@@ -1,19 +1,13 @@
 fun main() {
 
-    /**
-     * these might be out of bounds!
-     * */
-    fun Pair<Int, Int>.neighbours() = listOf(x - 1 to y, x + 1 to y, x to y - 1, x to y + 1)
-
     fun createHeightMap(rawInput: List<String>): List<List<Int>> =
         rawInput.map { it.toCharArray().map { it.digitToInt() } }
 
     fun findLowPoints(heightMap: List<List<Int>>) = buildList<Pair<Int, Int>> {
         heightMap.forEachIndexed { x, ints ->
             ints.forEachIndexed { y, height ->
-                val lowestNeighbour = (x to y).neighbours().mapNotNull { (nx, ny) ->
-                    heightMap.getOrNull(nx)?.getOrNull(ny)
-                }
+                val lowestNeighbour = (x to y).neighborsXY(heightMap)
+                    .map { (nx, ny) -> heightMap[nx][ny] }
                     .minOf { it }
 
                 if (height < lowestNeighbour) add(x to y)
@@ -33,7 +27,7 @@ fun main() {
         val queue = mutableListOf(point)
         while (queue.isNotEmpty()) {
             val newNeighbors = queue.removeFirst()
-                .neighbours()
+                .neighborsXY(heightMap)
                 .filterNot { visited.contains(it) }
                 .filter { (x, y) ->
                     val pointHeight = heightMap.getOrNull(x)?.getOrNull(y)

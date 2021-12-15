@@ -1,14 +1,9 @@
 plugins {
-    kotlin("jvm") version "1.6.0"
+    kotlin("jvm") version "1.6.10"
 }
 
 repositories {
     mavenCentral()
-}
-
-dependencies {
-    implementation("org.jetbrains.kotlinx:multik-api:0.1.1")
-    implementation("org.jetbrains.kotlinx:multik-default:0.1.1")
 }
 
 tasks {

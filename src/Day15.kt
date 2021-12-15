@@ -34,7 +34,7 @@ fun main() {
     }
 
     /**
-     * This would be actually better with get calculating new risks on the fly inside shortest path
+     * This could be actually better with get calculating new risks on the fly inside shortest path
      * method... but i am sleepy and tired 😂 so there is just lazy huge matrix copy
      */
     fun List<List<Int>>.inflate(times: Int): List<List<Int>> {
